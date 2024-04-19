@@ -8,19 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		95A823622BD2240000D19F4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823612BD2240000D19F4E /* AppDelegate.swift */; };
-		95A823642BD2240000D19F4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823632BD2240000D19F4E /* ContentView.swift */; };
 		95A823662BD2240200D19F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823652BD2240200D19F4E /* Assets.xcassets */; };
 		95A823692BD2240200D19F4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823682BD2240200D19F4E /* Preview Assets.xcassets */; };
-		95A823952BD2274A00D19F4E /* RealityMoreShape in Frameworks */ = {isa = PBXBuildFile; productRef = 95A823942BD2274A00D19F4E /* RealityMoreShape */; };
 		95A823982BD227FE00D19F4E /* RealityMoreShape in Frameworks */ = {isa = PBXBuildFile; productRef = 95A823972BD227FE00D19F4E /* RealityMoreShape */; };
+		95A823AC2BD244E400D19F4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A823A72BD244E400D19F4E /* LaunchScreen.storyboard */; };
+		95A823AD2BD244E400D19F4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A823A92BD244E400D19F4E /* Main.storyboard */; };
+		95A823AE2BD244E400D19F4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823AB2BD244E400D19F4E /* ViewController.swift */; };
+		95A823AF2BD2456200D19F4E /* number.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 95A823A42BD2445700D19F4E /* number.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		95A8235E2BD2240000D19F4E /* RealityMoreShapeDemo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RealityMoreShapeDemo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A823612BD2240000D19F4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		95A823632BD2240000D19F4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		95A823652BD2240200D19F4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95A823682BD2240200D19F4E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		95A823A42BD2445700D19F4E /* number.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = number.jpeg; sourceTree = "<group>"; };
+		95A823A62BD244E400D19F4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		95A823A82BD244E400D19F4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Main.storyboard; sourceTree = "<group>"; };
+		95A823AB2BD244E400D19F4E /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,7 +34,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				95A823982BD227FE00D19F4E /* RealityMoreShape in Frameworks */,
-				95A823952BD2274A00D19F4E /* RealityMoreShape in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,8 +60,10 @@
 			isa = PBXGroup;
 			children = (
 				95A823612BD2240000D19F4E /* AppDelegate.swift */,
-				95A823632BD2240000D19F4E /* ContentView.swift */,
+				95A823AA2BD244E400D19F4E /* Base.lproj */,
+				95A823AB2BD244E400D19F4E /* ViewController.swift */,
 				95A823652BD2240200D19F4E /* Assets.xcassets */,
+				95A823A42BD2445700D19F4E /* number.jpeg */,
 				95A823672BD2240200D19F4E /* Preview Content */,
 			);
 			path = "RealityMoreShapeDemo-iOS";
@@ -69,6 +75,15 @@
 				95A823682BD2240200D19F4E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		95A823AA2BD244E400D19F4E /* Base.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				95A823A72BD244E400D19F4E /* LaunchScreen.storyboard */,
+				95A823A92BD244E400D19F4E /* Main.storyboard */,
+			);
+			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,7 +103,6 @@
 			);
 			name = "RealityMoreShapeDemo-iOS";
 			packageProductDependencies = (
-				95A823942BD2274A00D19F4E /* RealityMoreShape */,
 				95A823972BD227FE00D19F4E /* RealityMoreShape */,
 			);
 			productName = "RealityMoreShapeDemo-iOS";
@@ -136,8 +150,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95A823AF2BD2456200D19F4E /* number.jpeg in Resources */,
+				95A823AC2BD244E400D19F4E /* LaunchScreen.storyboard in Resources */,
 				95A823692BD2240200D19F4E /* Preview Assets.xcassets in Resources */,
 				95A823662BD2240200D19F4E /* Assets.xcassets in Resources */,
+				95A823AD2BD244E400D19F4E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,12 +165,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95A823642BD2240000D19F4E /* ContentView.swift in Sources */,
+				95A823AE2BD244E400D19F4E /* ViewController.swift in Sources */,
 				95A823622BD2240000D19F4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		95A823A72BD244E400D19F4E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95A823A62BD244E400D19F4E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		95A823A92BD244E400D19F4E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95A823A82BD244E400D19F4E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		95A8236A2BD2240200D19F4E /* Debug */ = {
@@ -288,10 +324,13 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,10 +357,13 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -366,10 +408,6 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		95A823942BD2274A00D19F4E /* RealityMoreShape */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityMoreShape;
-		};
 		95A823972BD227FE00D19F4E /* RealityMoreShape */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityMoreShape;

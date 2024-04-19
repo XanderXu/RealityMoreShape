@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9yt-zG-Du9">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="g8F-1O-c0a">
+            <objects>
+                <viewController id="9yt-zG-Du9" customClass="ViewController" customModule="RealityMoreShapeDemo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f1N-BT-TG9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <arView multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ows-CE-oI4">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </arView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="NOT-jL-iTZ">
+                                <rect key="frame" x="78.5" y="791" width="257" height="32"/>
+                                <segments>
+                                    <segment title="无"/>
+                                    <segment title="法线可视化"/>
+                                    <segment title="UV可视化"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segChanged:" destination="9yt-zG-Du9" eventType="valueChanged" id="HEx-fc-1gC"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A88-Cu-gig">
+                                <rect key="frame" x="50" y="78" width="44" height="30"/>
+                                <state key="normal" title="Shape"/>
+                                <connections>
+                                    <action selector="shapeBtnAction:" destination="9yt-zG-Du9" eventType="touchUpInside" id="v2j-oC-OgE"/>
+                                </connections>
+                            </button>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Lx-ko-ZoJ">
+                                <rect key="frame" x="0.0" y="116" width="240" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="XfZ-1X-MtX"/>
+                                    <constraint firstAttribute="width" constant="240" id="hKA-1G-iGg"/>
+                                </constraints>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j6X-aA-88V"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="A88-Cu-gig" firstAttribute="top" secondItem="j6X-aA-88V" secondAttribute="top" constant="30" id="7WU-JO-WuH"/>
+                            <constraint firstItem="1Lx-ko-ZoJ" firstAttribute="leading" secondItem="j6X-aA-88V" secondAttribute="leading" id="EVb-G6-Ucs"/>
+                            <constraint firstItem="j6X-aA-88V" firstAttribute="bottom" secondItem="NOT-jL-iTZ" secondAttribute="bottom" constant="40" id="Gj4-Gs-fi4"/>
+                            <constraint firstItem="A88-Cu-gig" firstAttribute="leading" secondItem="j6X-aA-88V" secondAttribute="leading" constant="50" id="JOn-Vx-qeL"/>
+                            <constraint firstAttribute="trailing" secondItem="ows-CE-oI4" secondAttribute="trailing" id="Q2W-hr-ns1"/>
+                            <constraint firstItem="ows-CE-oI4" firstAttribute="leading" secondItem="f1N-BT-TG9" secondAttribute="leading" id="UCn-iU-Yb6"/>
+                            <constraint firstAttribute="bottom" secondItem="ows-CE-oI4" secondAttribute="bottom" id="b6p-dI-uhj"/>
+                            <constraint firstItem="1Lx-ko-ZoJ" firstAttribute="top" secondItem="A88-Cu-gig" secondAttribute="bottom" constant="8" symbolic="YES" id="hPd-ay-REn"/>
+                            <constraint firstItem="ows-CE-oI4" firstAttribute="top" secondItem="f1N-BT-TG9" secondAttribute="top" id="jRk-lS-Oqk"/>
+                            <constraint firstItem="NOT-jL-iTZ" firstAttribute="centerX" secondItem="f1N-BT-TG9" secondAttribute="centerX" id="uRb-cV-2kU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="arView" destination="ows-CE-oI4" id="SdQ-Hu-nGL"/>
+                        <outlet property="tableView" destination="1Lx-ko-ZoJ" id="JQn-6M-9JA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="apa-Y5-W15" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-415.94202898550731" y="150"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
