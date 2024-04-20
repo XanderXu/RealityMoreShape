@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CA7F9A92BD354EC000E77DA /* ViewController+CoachingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA7F9A82BD354EC000E77DA /* ViewController+CoachingOverlay.swift */; };
 		95A823622BD2240000D19F4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823612BD2240000D19F4E /* AppDelegate.swift */; };
 		95A823662BD2240200D19F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823652BD2240200D19F4E /* Assets.xcassets */; };
 		95A823692BD2240200D19F4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823682BD2240200D19F4E /* Preview Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6CA7F9A82BD354EC000E77DA /* ViewController+CoachingOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+CoachingOverlay.swift"; sourceTree = "<group>"; };
 		95A8235E2BD2240000D19F4E /* RealityMoreShapeDemo-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RealityMoreShapeDemo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A823612BD2240000D19F4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A823652BD2240200D19F4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				95A823612BD2240000D19F4E /* AppDelegate.swift */,
 				95A823AA2BD244E400D19F4E /* Base.lproj */,
 				95A823AB2BD244E400D19F4E /* ViewController.swift */,
+				6CA7F9A82BD354EC000E77DA /* ViewController+CoachingOverlay.swift */,
 				95A823652BD2240200D19F4E /* Assets.xcassets */,
 				95A823A42BD2445700D19F4E /* number.jpeg */,
 				95A823672BD2240200D19F4E /* Preview Content */,
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CA7F9A92BD354EC000E77DA /* ViewController+CoachingOverlay.swift in Sources */,
 				95A823AE2BD244E400D19F4E /* ViewController.swift in Sources */,
 				95A823622BD2240000D19F4E /* AppDelegate.swift in Sources */,
 			);
@@ -319,6 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RealityMoreShapeDemo-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = T59W99K34W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
@@ -352,6 +357,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RealityMoreShapeDemo-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = T59W99K34W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";

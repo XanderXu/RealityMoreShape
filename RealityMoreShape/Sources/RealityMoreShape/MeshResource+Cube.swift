@@ -8,7 +8,7 @@
 import RealityKit
 
 extension MeshResource {
-    public static func generateExtrudedRoundedRectPad(width: Float, height: Float, depth: Float, radius: Float, angularResolution: Int = 3, edgeXResolution: Int = 2, edgeYResolution: Int = 2, depthResolution: Int = 2, radialResolution: Int = 2, splitFaces: Bool = false, circleUV: Bool = false) throws -> MeshResource {
+    public static func generateExtrudedRoundedRectPad(width: Float, height: Float, depth: Float, radius: Float, angularResolution: Int = 6, edgeXResolution: Int = 2, edgeYResolution: Int = 2, depthResolution: Int = 2, radialResolution: Int = 2, splitFaces: Bool = false, circleUV: Bool = false) throws -> MeshResource {
         var descr = MeshDescriptor()
         var meshPositions: [SIMD3<Float>] = []
         var indices: [UInt32] = []

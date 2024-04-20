@@ -13,7 +13,8 @@ import RealityMoreShape
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var arView: ARView!
-    
+    let coachingOverlay = ARCoachingOverlayView()
+    let modelAnchor = AnchorEntity(.plane(.horizontal, classification: .any, minimumBounds: simd_float2(0.1, 0.1)))
     var selectedIndex: Int = 0 {
         didSet {
             if selectedIndex != oldValue {
@@ -47,14 +48,7 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        let modelAnchor = AnchorEntity(.plane(.horizontal, classification: .any, minimumBounds: .zero))
-        
-        // Add the box anchor to the scene
-        arView.scene.anchors.append(modelAnchor)
-        
-        let config = ARWorldTrackingConfiguration()
-        config.planeDetection = [.horizontal]
-        arView.session.run(config, options: [])
+        setupCoachingOverlay()
         
         var m = PhysicallyBasedMaterial()
         m.baseColor = .init(tint: .white, texture:.init(try! TextureResource.load(named: "number.jpeg", in: nil)))
@@ -70,6 +64,37 @@ class ViewController: UIViewController {
         } catch {
             print(error)
         }
+        resetTracking()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
+        UIApplication.shared.isIdleTimerDisabled = true
+
+        // Start the `ARSession`.
+        resetTracking()
+    }
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
+    
+    // MARK: - Session management
+    
+    /// Creates a new AR configuration to run on the `session`.
+    func resetTracking() {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal]
+//        configuration.environmentTexturing = .automatic
+        arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        
+        // Add the anchor to the scene
+        arView.scene.anchors.append(modelAnchor)
+        coachingOverlay.setActive(true, animated: true)
+    }
+    @IBAction func resetBtnAnction(_ sender: UIButton) {
+        resetTracking()
     }
     @IBAction func shapeBtnAction(_ sender: UIButton) {
         tableView.isHidden = sender.isSelected
@@ -105,7 +130,7 @@ class ViewController: UIViewController {
                 let mesh = try MeshResource.generateCirclePlane(radius:0.1, angularResolution: 30, radialResolution: 5, circleUV: true)
                 model.model?.mesh = mesh
             case 1:
-                let mesh = try MeshResource.generateArcPlane(innerRadius: 0.02, outerRadius: 0.2, startAngle: 0, endAngle: .pi, angularResolution: 30, radialResolution: 5, circleUV: true)
+                let mesh = try MeshResource.generateArcPlane(innerRadius: 0.02, outerRadius: 0.1, startAngle: 0, endAngle: .pi, angularResolution: 30, radialResolution: 5, circleUV: true)
                 model.model?.mesh = mesh
             case 2:
                 let mesh = try MeshResource.generateSquirclePlane(size: 0.2, p: 4, angularResolution: 30, radialResolution: 5, circleUV: true)
@@ -114,25 +139,25 @@ class ViewController: UIViewController {
                 let mesh = try MeshResource.generateRoundedRectPlane(width: 0.2, height: 0.2, radius: 0.05, angularResolution: 10, edgeXResolution: 5, edgeYResolution: 5, radialResolution: 5, circleUV: true)
                 model.model?.mesh = mesh
             case 4:
-                let mesh = try MeshResource.generateCone(radius: 0.2, height: 0.3, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: true, circleUV: false)
+                let mesh = try MeshResource.generateCone(radius: 0.1, height: 0.15, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: true, circleUV: false)
                 model.model?.mesh = mesh
             case 5:
-                let mesh = try MeshResource.generateCylinder(radius: 0.2, height: 0.2, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: false, circleUV: false)
+                let mesh = try MeshResource.generateCylinder(radius: 0.05, height: 0.2, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: false, circleUV: false)
                 model.model?.mesh = mesh
             case 6:
-                let mesh = try MeshResource.generateCapsule(radius: 0.1, height: 0.1, angularResolution: 24, radialResolution: 5, verticalResolution: 3, splitFaces: true)
+                let mesh = try MeshResource.generateCapsule(radius: 0.05, height: 0.1, angularResolution: 24, radialResolution: 5, verticalResolution: 3, splitFaces: true)
                 model.model?.mesh = mesh
             case 7:
-                let mesh = try MeshResource.generateTorus(minorRadius: 0.05, majorRadius: 0.2)
+                let mesh = try MeshResource.generateTorus(minorRadius: 0.02, majorRadius: 0.1)
                 model.model?.mesh = mesh
             case 8:
-                let mesh = try MeshResource.generateLissajousCurveTorus(minorRadius: 0.008, majorRadius: 0.2, height: 0.3, cycleTimes: 4, majorResolution: 96)
+                let mesh = try MeshResource.generateLissajousCurveTorus(minorRadius: 0.008, majorRadius: 0.1, height: 0.1, cycleTimes: 4, majorResolution: 96)
                 model.model?.mesh = mesh
             case 9:
                 let mesh = try MeshResource.generateTetrahedron(radius: 0.1, res: 3)
                 model.model?.mesh = mesh
             case 10:
-                let mesh = try MeshResource.generateHexahedron(radius: 0.2, res: 3)
+                let mesh = try MeshResource.generateHexahedron(radius: 0.1, res: 3)
                 model.model?.mesh = mesh
             case 11:
                 let mesh = try MeshResource.generateOctahedron(radius: 0.1, res: 3)
@@ -144,7 +169,7 @@ class ViewController: UIViewController {
                 let mesh = try MeshResource.generateIcosahedron(radius: 0.1, res: 3)
                 model.model?.mesh = mesh
             case 14:
-                let mesh = try MeshResource.generateGeoSphere(radius: 0.2, res: 0)
+                let mesh = try MeshResource.generateGeoSphere(radius: 0.1, res: 0)
                 model.model?.mesh = mesh
             case 15:
                 let mesh = try MeshResource.generateExtrudedRoundedRectPad(width: 0.2, height: 0.2, depth: 0.1, radius: 0.05, splitFaces: false, circleUV: false)

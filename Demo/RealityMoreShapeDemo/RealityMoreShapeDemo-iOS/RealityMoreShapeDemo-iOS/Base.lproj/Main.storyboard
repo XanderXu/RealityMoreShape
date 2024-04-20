@@ -46,6 +46,14 @@
                                     <constraint firstAttribute="width" constant="240" id="hKA-1G-iGg"/>
                                 </constraints>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vs8-Mq-Tva">
+                                <rect key="frame" x="326.5" y="78" width="67.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Reset"/>
+                                <connections>
+                                    <action selector="resetBtnAnction:" destination="9yt-zG-Du9" eventType="touchUpInside" id="CKz-Xx-TJ8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="j6X-aA-88V"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,8 +65,10 @@
                             <constraint firstAttribute="trailing" secondItem="ows-CE-oI4" secondAttribute="trailing" id="Q2W-hr-ns1"/>
                             <constraint firstItem="ows-CE-oI4" firstAttribute="leading" secondItem="f1N-BT-TG9" secondAttribute="leading" id="UCn-iU-Yb6"/>
                             <constraint firstAttribute="bottom" secondItem="ows-CE-oI4" secondAttribute="bottom" id="b6p-dI-uhj"/>
+                            <constraint firstItem="j6X-aA-88V" firstAttribute="trailing" secondItem="vs8-Mq-Tva" secondAttribute="trailing" constant="20" id="b9y-QS-bfs"/>
                             <constraint firstItem="1Lx-ko-ZoJ" firstAttribute="top" secondItem="A88-Cu-gig" secondAttribute="bottom" constant="8" symbolic="YES" id="hPd-ay-REn"/>
                             <constraint firstItem="ows-CE-oI4" firstAttribute="top" secondItem="f1N-BT-TG9" secondAttribute="top" id="jRk-lS-Oqk"/>
+                            <constraint firstItem="vs8-Mq-Tva" firstAttribute="top" secondItem="j6X-aA-88V" secondAttribute="top" constant="30" id="pqa-Tp-GX4"/>
                             <constraint firstItem="NOT-jL-iTZ" firstAttribute="centerX" secondItem="f1N-BT-TG9" secondAttribute="centerX" id="uRb-cV-2kU"/>
                         </constraints>
                     </view>
