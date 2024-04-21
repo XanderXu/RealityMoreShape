@@ -140,7 +140,7 @@
 			);
 			mainGroup = 95A823552BD223FF00D19F4E;
 			packageReferences = (
-				6C38E9842BD4CD0D0001C326 /* XCLocalSwiftPackageReference "../RealityMoreShape" */,
+				6C38E9842BD4CD0D0001C326 /* XCLocalSwiftPackageReference "../" */,
 			);
 			productRefGroup = 95A8235F2BD2240000D19F4E /* Products */;
 			projectDirPath = "";
@@ -414,9 +414,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6C38E9842BD4CD0D0001C326 /* XCLocalSwiftPackageReference "../RealityMoreShape" */ = {
+		6C38E9842BD4CD0D0001C326 /* XCLocalSwiftPackageReference "../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../RealityMoreShape;
+			relativePath = ../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
