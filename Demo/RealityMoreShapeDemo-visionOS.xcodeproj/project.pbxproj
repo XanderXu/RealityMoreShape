@@ -7,20 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		95A8237E2BD2248000D19F4E /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 95A8237D2BD2248000D19F4E /* RealityKitContent */; };
+		6C38E9892BD4CD720001C326 /* RealityMoreShape in Frameworks */ = {isa = PBXBuildFile; productRef = 6C38E9882BD4CD720001C326 /* RealityMoreShape */; };
+		6C38E98D2BD4CF7C0001C326 /* number.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6C38E98C2BD4CF7C0001C326 /* number.jpeg */; };
 		95A823802BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */; };
 		95A823822BD2248000D19F4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823812BD2248000D19F4E /* ContentView.swift */; };
-		95A823842BD2248000D19F4E /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823832BD2248000D19F4E /* ImmersiveView.swift */; };
 		95A823862BD2248200D19F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823852BD2248200D19F4E /* Assets.xcassets */; };
 		95A823892BD2248200D19F4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823882BD2248200D19F4E /* Preview Assets.xcassets */; };
-		95A823922BD2273300D19F4E /* RealityMoreShape in Frameworks */ = {isa = PBXBuildFile; productRef = 95A823912BD2273300D19F4E /* RealityMoreShape */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C38E98C2BD4CF7C0001C326 /* number.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = number.jpeg; sourceTree = "<group>"; };
 		95A823782BD2248000D19F4E /* RealityMoreShapeDemo-visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RealityMoreShapeDemo-visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealityMoreShapeDemo_visionOSApp.swift; sourceTree = "<group>"; };
 		95A823812BD2248000D19F4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		95A823832BD2248000D19F4E /* ImmersiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveView.swift; sourceTree = "<group>"; };
 		95A823852BD2248200D19F4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95A823882BD2248200D19F4E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		95A8238A2BD2248200D19F4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -31,8 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95A823922BD2273300D19F4E /* RealityMoreShape in Frameworks */,
-				95A8237E2BD2248000D19F4E /* RealityKitContent in Frameworks */,
+				6C38E9892BD4CD720001C326 /* RealityMoreShape in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +58,7 @@
 			children = (
 				95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */,
 				95A823812BD2248000D19F4E /* ContentView.swift */,
-				95A823832BD2248000D19F4E /* ImmersiveView.swift */,
+				6C38E98C2BD4CF7C0001C326 /* number.jpeg */,
 				95A823852BD2248200D19F4E /* Assets.xcassets */,
 				95A8238A2BD2248200D19F4E /* Info.plist */,
 				95A823872BD2248200D19F4E /* Preview Content */,
@@ -93,8 +91,7 @@
 			);
 			name = "RealityMoreShapeDemo-visionOS";
 			packageProductDependencies = (
-				95A8237D2BD2248000D19F4E /* RealityKitContent */,
-				95A823912BD2273300D19F4E /* RealityMoreShape */,
+				6C38E9882BD4CD720001C326 /* RealityMoreShape */,
 			);
 			productName = "RealityMoreShapeDemo-visionOS";
 			productReference = 95A823782BD2248000D19F4E /* RealityMoreShapeDemo-visionOS.app */;
@@ -125,7 +122,7 @@
 			);
 			mainGroup = 95A8236F2BD2248000D19F4E;
 			packageReferences = (
-				95A823902BD2273300D19F4E /* XCLocalSwiftPackageReference "../../../RealityMoreShape" */,
+				6C38E9872BD4CD720001C326 /* XCLocalSwiftPackageReference "../RealityMoreShape" */,
 			);
 			productRefGroup = 95A823792BD2248000D19F4E /* Products */;
 			projectDirPath = "";
@@ -141,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C38E98D2BD4CF7C0001C326 /* number.jpeg in Resources */,
 				95A823892BD2248200D19F4E /* Preview Assets.xcassets in Resources */,
 				95A823862BD2248200D19F4E /* Assets.xcassets in Resources */,
 			);
@@ -155,7 +153,6 @@
 			files = (
 				95A823822BD2248000D19F4E /* ContentView.swift in Sources */,
 				95A823802BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift in Sources */,
-				95A823842BD2248000D19F4E /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,18 +352,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		95A823902BD2273300D19F4E /* XCLocalSwiftPackageReference "../../../RealityMoreShape" */ = {
+		6C38E9872BD4CD720001C326 /* XCLocalSwiftPackageReference "../RealityMoreShape" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../../RealityMoreShape;
+			relativePath = ../RealityMoreShape;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		95A8237D2BD2248000D19F4E /* RealityKitContent */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityKitContent;
-		};
-		95A823912BD2273300D19F4E /* RealityMoreShape */ = {
+		6C38E9882BD4CD720001C326 /* RealityMoreShape */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityMoreShape;
 		};

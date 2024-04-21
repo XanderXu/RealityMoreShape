@@ -14,8 +14,5 @@ struct RealityMoreShapeDemo_visionOSApp: App {
             ContentView()
         }
 
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
-        }
     }
 }

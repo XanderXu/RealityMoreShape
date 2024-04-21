@@ -1,0 +1,18 @@
+
+/* Class = "UIButton"; normalTitle = "Shape"; ObjectID = "A88-Cu-gig"; */
+"A88-Cu-gig.normalTitle" = "形状";
+
+/* Class = "UISegmentedControl"; NOT-jL-iTZ.segmentTitles[0] = "None"; ObjectID = "NOT-jL-iTZ"; */
+"NOT-jL-iTZ.segmentTitles[0]" = "无";
+
+/* Class = "UISegmentedControl"; NOT-jL-iTZ.segmentTitles[1] = "Normal"; ObjectID = "NOT-jL-iTZ"; */
+"NOT-jL-iTZ.segmentTitles[1]" = "法线可视化";
+
+/* Class = "UISegmentedControl"; NOT-jL-iTZ.segmentTitles[2] = "UV"; ObjectID = "NOT-jL-iTZ"; */
+"NOT-jL-iTZ.segmentTitles[2]" = "UV可视化";
+
+/* Class = "UIButton"; configuration.title = "Reset"; ObjectID = "vs8-Mq-Tva"; */
+"vs8-Mq-Tva.configuration.title" = "重置";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vs8-Mq-Tva"; */
+"vs8-Mq-Tva.normalTitle" = "重置";

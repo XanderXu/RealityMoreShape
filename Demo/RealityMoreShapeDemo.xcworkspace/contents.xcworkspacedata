@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:RealityMoreShapeDemo"
-      name = "RealityMoreShapeDemo">
-      <Group
-         location = "group:RealityMoreShapeDemo-visionOS"
-         name = "RealityMoreShapeDemo-visionOS">
-         <FileRef
-            location = "group:RealityMoreShapeDemo-visionOS.xcodeproj">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:RealityMoreShapeDemo-iOS"
-         name = "RealityMoreShapeDemo-iOS">
-         <FileRef
-            location = "group:RealityMoreShapeDemo-iOS.xcodeproj">
-         </FileRef>
-      </Group>
-   </Group>
+   <FileRef
+      location = "group:RealityMoreShapeDemo-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:RealityMoreShapeDemo-visionOS.xcodeproj">
+   </FileRef>
 </Workspace>
