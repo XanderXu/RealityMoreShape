@@ -23,15 +23,15 @@ Extending the built-in Geometry types in RealityKit, for iOS and visionOS.
 
 
 
-\## Requirements 需求
+## Requirements 需求
 
 
 
-\- visionOS 1.0+/iOS 15.0+
+- visionOS 1.0+/iOS 15.0+
 
 
 
-\## Usage 使用
+## Usage 使用
 
 ```swift
 //iOS
@@ -81,11 +81,11 @@ In the Demo, you can see the shape of every Geometry type. And you can also choo
 
 ![Tetrahedron-none](./Resources/Tetrahedron-uv.png)
 
-\## Installation 安装
+## Installation 安装
 
 
 
-\#### Swift Package Manager（SPM）
+#### Swift Package Manager（SPM）
 
 
 
@@ -95,15 +95,15 @@ To integrate using Apple's Swift package manager, add the following as a depende
 
 
 
-\```
+```
 
 .package(url: "https://github.com/XanderXu/RealityMoreShape.git", .upToNextMajor(from: "0.1.0"))
 
-\```
+```
 
 
 
-\#### Manually 手动
+#### Manually 手动
 
 
 
@@ -113,23 +113,23 @@ To integrate using Apple's Swift package manager, add the following as a depende
 
 
 
-\## Contact 联系方式
+## Contact 联系方式
 
 
 
 Xander: API 搬运工  
 
-\* [https://twitter.com/XanderARKit](https://twitter.com/XanderARKit)
+* [https://twitter.com/XanderARKit](https://twitter.com/XanderARKit)
 
-\* [https://github.com/XanderXu](https://github.com/XanderXu)
+* [https://github.com/XanderXu](https://github.com/XanderXu)
 
-\* [https://juejin.cn/user/2629687543092056](https://juejin.cn/user/2629687543092056)
-
-
+* [https://juejin.cn/user/2629687543092056](https://juejin.cn/user/2629687543092056)
 
 
 
-\## License 证书
+
+
+## License 证书
 
 
 
