@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  RealityMoreShapeDemo-visionOS
+
+  Created by 许同学 on 2024/4/21.
+  
+*/
+
+"CirclePlane" = "Circle Plane";
+"ArcPlane" = "Arc Plane";
+"SquirclePlane" = "Squircle Plane";
+"RoundedRectPlane" = "Rounded Rect Plane";
+"Cone" = "Cone";
+"Cylinder" = "Cylinder";
+"Capsule" = "Capsule";
+"Torus" = "Torus";
+"LissajousCurveTorus" = "Lissajous Curve Torus";
+"Tetrahedron" = "Regular Tetrahedron";
+"Hexahedron" = "Regular Hexahedron";
+"Octahedron" = "Regular Octahedron";
+"Dodecahedron" = "Regular Dodecahedron";
+"Icosahedron" = "Regular Icosahedron";
+"GeoSphere" = "GeoSphere";
+"ExtrudedRoundedRectPad" = "Extruded Rounded Rect Pad";
+"RoundedCube" = "Rounded Cube";
+"CubeSphere" = "Cube Sphere";

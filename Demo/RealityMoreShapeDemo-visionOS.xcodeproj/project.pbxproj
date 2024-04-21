@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		6C38E9892BD4CD720001C326 /* RealityMoreShape in Frameworks */ = {isa = PBXBuildFile; productRef = 6C38E9882BD4CD720001C326 /* RealityMoreShape */; };
 		6C38E98D2BD4CF7C0001C326 /* number.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6C38E98C2BD4CF7C0001C326 /* number.jpeg */; };
+		6C38E9912BD4D1130001C326 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C38E9902BD4D1130001C326 /* ViewModel.swift */; };
+		6C38E99C2BD4E1190001C326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C38E99A2BD4E1190001C326 /* Localizable.strings */; };
+		6C38E99F2BD4E1250001C326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C38E99D2BD4E1250001C326 /* Localizable.strings */; };
 		95A823802BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */; };
 		95A823822BD2248000D19F4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A823812BD2248000D19F4E /* ContentView.swift */; };
 		95A823862BD2248200D19F4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A823852BD2248200D19F4E /* Assets.xcassets */; };
@@ -17,6 +20,9 @@
 
 /* Begin PBXFileReference section */
 		6C38E98C2BD4CF7C0001C326 /* number.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = number.jpeg; sourceTree = "<group>"; };
+		6C38E9902BD4D1130001C326 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		6C38E99B2BD4E1190001C326 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		6C38E99E2BD4E1250001C326 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		95A823782BD2248000D19F4E /* RealityMoreShapeDemo-visionOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RealityMoreShapeDemo-visionOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealityMoreShapeDemo_visionOSApp.swift; sourceTree = "<group>"; };
 		95A823812BD2248000D19F4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -37,6 +43,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C38E9952BD4DAE00001C326 /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				6C38E99D2BD4E1250001C326 /* Localizable.strings */,
+			);
+			path = "zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
+		6C38E9962BD4DAFC0001C326 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				6C38E99A2BD4E1190001C326 /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 		95A8236F2BD2248000D19F4E = {
 			isa = PBXGroup;
 			children = (
@@ -56,8 +78,11 @@
 		95A8237A2BD2248000D19F4E /* RealityMoreShapeDemo-visionOS */ = {
 			isa = PBXGroup;
 			children = (
+				6C38E9962BD4DAFC0001C326 /* en.lproj */,
+				6C38E9952BD4DAE00001C326 /* zh-Hans.lproj */,
 				95A8237F2BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift */,
 				95A823812BD2248000D19F4E /* ContentView.swift */,
+				6C38E9902BD4D1130001C326 /* ViewModel.swift */,
 				6C38E98C2BD4CF7C0001C326 /* number.jpeg */,
 				95A823852BD2248200D19F4E /* Assets.xcassets */,
 				95A8238A2BD2248200D19F4E /* Info.plist */,
@@ -119,6 +144,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 95A8236F2BD2248000D19F4E;
 			packageReferences = (
@@ -138,7 +164,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C38E99F2BD4E1250001C326 /* Localizable.strings in Resources */,
 				6C38E98D2BD4CF7C0001C326 /* number.jpeg in Resources */,
+				6C38E99C2BD4E1190001C326 /* Localizable.strings in Resources */,
 				95A823892BD2248200D19F4E /* Preview Assets.xcassets in Resources */,
 				95A823862BD2248200D19F4E /* Assets.xcassets in Resources */,
 			);
@@ -152,11 +180,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				95A823822BD2248000D19F4E /* ContentView.swift in Sources */,
+				6C38E9912BD4D1130001C326 /* ViewModel.swift in Sources */,
 				95A823802BD2248000D19F4E /* RealityMoreShapeDemo_visionOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6C38E99A2BD4E1190001C326 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C38E99B2BD4E1190001C326 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6C38E99D2BD4E1250001C326 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6C38E99E2BD4E1250001C326 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		95A8238B2BD2248200D19F4E /* Debug */ = {

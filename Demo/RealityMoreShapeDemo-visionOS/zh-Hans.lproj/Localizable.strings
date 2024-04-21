@@ -1,0 +1,31 @@
+/* 
+  Localizable.strings
+  RealityMoreShapeDemo-visionOS
+
+  Created by 许同学 on 2024/4/21.
+  
+*/
+
+"CirclePlane" = "圆形平面";
+"ArcPlane" = "扇形平面";
+"SquirclePlane" = "方圆形平面";
+"RoundedRectPlane" = "圆角矩形平面";
+"Cone" = "圆锥体";
+"Cylinder" = "圆柱体";
+"Capsule" = "胶囊体";
+"Torus" = "圆环体(环面)";
+"LissajousCurveTorus" = "李萨如曲线圆环体";
+"Tetrahedron" = "正四面体";
+"Hexahedron" = "正六面体";
+"Octahedron" = "正八面体";
+"Dodecahedron" = "正十二面体";
+"Icosahedron" = "正二十面体";
+"GeoSphere" = "几何均分球体";
+"ExtrudedRoundedRectPad" = "圆角矩形平台";
+"RoundedCube" = "圆角立方体";
+"CubeSphere" = "立方球体";
+
+"Visualization" = "可视化";
+"None" = "无";
+"Nomal" = "法线可视化";
+"UV" = "UV可视化";

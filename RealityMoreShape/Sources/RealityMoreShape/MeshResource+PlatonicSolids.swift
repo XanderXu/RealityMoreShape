@@ -390,7 +390,7 @@ extension MeshResource {
         return try MeshResource.generate(from: [descr])
     }
     /// 正十二面体，radius 为外接球半径，res 五边形面剖分次数
-    public static func generateDogecahedron(radius: Float, res: Int = 0) throws -> MeshResource {
+    public static func generateDodecahedron(radius: Float, res: Int = 0) throws -> MeshResource {
         let pointCount = 20
         let pentagons = 12
         var vertices = pointCount * 3

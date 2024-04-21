@@ -22,7 +22,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    var meshName: [String] = [
+    let meshNames: [String] = [
         "CirclePlane",
         "ArcPlane",
         "SquirclePlane",
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         "Tetrahedron",
         "Hexahedron",
         "Octahedron",
-        "Dogecahedron",
+        "Dodecahedron",
         "Icosahedron",
         "GeoSphere",
         "ExtrudedRoundedRectPad",
@@ -163,7 +163,7 @@ class ViewController: UIViewController {
                 let mesh = try MeshResource.generateOctahedron(radius: 0.1, res: 3)
                 model.model?.mesh = mesh
             case 12:
-                let mesh = try MeshResource.generateDogecahedron(radius: 0.1, res: 3)
+                let mesh = try MeshResource.generateDodecahedron(radius: 0.1, res: 3)
                 model.model?.mesh = mesh
             case 13:
                 let mesh = try MeshResource.generateIcosahedron(radius: 0.1, res: 3)
@@ -200,7 +200,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
         }
-        cell?.textLabel?.text = meshName[indexPath.row]
+        cell?.textLabel?.text = meshNames[indexPath.row]
         if indexPath.row == selectedIndex {
             cell?.backgroundColor = UIColor.gray
         } else {
