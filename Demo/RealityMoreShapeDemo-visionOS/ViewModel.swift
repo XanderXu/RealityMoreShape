@@ -12,7 +12,8 @@ import SwiftUI
 
 @Observable
 class ViewModel: @unchecked Sendable {
-    var selectedIndex: Int = 0
+    var modelEntity: ModelEntity?
+    
     let meshNames: [String] = [
         "CirclePlane",
         "ArcPlane",

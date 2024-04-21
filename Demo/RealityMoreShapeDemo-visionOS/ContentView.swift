@@ -26,9 +26,8 @@ struct ContentView: View {
                         .background(Color.clear)
                         .foregroundColor((index == selectedIndex) ? Color.teal.opacity(0.3) : .clear)
                 )
-                
             }
-            .navigationTitle("Reality More Shap Demo")
+            .navigationTitle("Reality More Shape Demo")
         } detail: {
             VStack {
                 Picker("Visualization", selection: $visualizationIndex) {
@@ -48,41 +47,41 @@ struct ContentView: View {
                     
                     
                     if let mesh = model.generateShapeOfIndex(selectedIndex) {
-                        let model = ModelEntity(mesh:mesh, materials: [m,m,m2])
-                        model.name = "model"
-                        content.add(model)
+                        let modelEntity = ModelEntity(mesh:mesh, materials: [m,m,m2])
+                        modelEntity.name = "model"
+                        content.add(modelEntity)
+                        model.modelEntity = modelEntity
                     }
                     
                 } update: { content in
                     debugPrint("update")
-                    if let mesh = model.generateShapeOfIndex(selectedIndex) {
-                        let model = content.entities.first { e in
-                            e.name == "model"
-                        } as? ModelEntity
-                        
-                        model?.model?.mesh = mesh
-                        
-                        model?.components.remove(ModelDebugOptionsComponent.self)
-                        switch visualizationIndex {
-                        case 1:
-                            break
-                        case 2:
-                            let debug = ModelDebugOptionsComponent(visualizationMode: .normal)
-                            model?.components.set(debug)
-                        case 3:
-                            let debug = ModelDebugOptionsComponent(visualizationMode: .textureCoordinates)
-                            model?.components.set(debug)
-                        default:
-                            break
-                        }
+                    switch visualizationIndex {
+                    case 1:
+                        let debug = ModelDebugOptionsComponent(visualizationMode: .none)
+                        model.modelEntity?.components.set(debug)
+                    case 2:
+                        let debug = ModelDebugOptionsComponent(visualizationMode: .normal)
+                        model.modelEntity?.components.set(debug)
+                    case 3:
+                        let debug = ModelDebugOptionsComponent(visualizationMode: .textureCoordinates)
+                        model.modelEntity?.components.set(debug)
+                    default:
+                        break
                     }
                 }
-                
-                
             }
             .navigationTitle(model.meshNamesLocal[selectedIndex])
+            .onChange(of: selectedIndex) { oldValue, newValue in
+                debugPrint("onChange")
+                if let mesh = model.generateShapeOfIndex(selectedIndex) {
+                    model.modelEntity?.model?.mesh = mesh
+                }
+            }
+            
+            
         }
         .frame(minWidth: 800, minHeight: 500)
+        
         
         
     }

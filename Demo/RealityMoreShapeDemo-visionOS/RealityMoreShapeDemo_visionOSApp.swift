@@ -12,6 +12,7 @@ struct RealityMoreShapeDemo_visionOSApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+//                .environment(\.locale, .init(identifier: "en"))
         }
 
     }
