@@ -101,7 +101,7 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try MeshResource.generateIcosahedron(radius: 0.1, res: 3)
                 return mesh
             case 14:
-                let mesh = try MeshResource.generateGeoSphere(radius: 0.1, res: 0)
+                let mesh = try MeshResource.generateGeoSphere(radius: 0.1, res: 3)
                 return mesh
             case 15:
                 let mesh = try MeshResource.generateExtrudedRoundedRectPad(width: 0.2, height: 0.2, depth: 0.1, radius: 0.05, splitFaces: false, circleUV: false)
