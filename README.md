@@ -1,19 +1,15 @@
-# RealityMoreShape
-
 
 <p align="center">
-
+     <img src="Resources/RealityMoreShape.png" alt="RealityMoreShape Logo" title="RealityMoreShape" />
 </p>
 
 <p align="center">
-
   <a href="https://github.com/apple/swift-package-manager"><img alt="Swift Package Manager compatible" src="https://img.shields.io/badge/SPM-%E2%9C%93-brightgreen.svg?style=flat"/></a>
-
   <img src="https://img.shields.io/badge/Swift-5.9+-orange.svg" alt="Swift 5.9" />
-
   <img src="https://img.shields.io/badge/Platforms-visionOS--iOS-brightgreen?style=flat-square" alt="Swift 5.9" />
-
 </p>
+
+# RealityMoreShape
 
 
 
@@ -73,7 +69,9 @@ RealityView { content in
 
 In the Demo, you can see the shape of every Geometry type. And you can also choose to display DebugOptions of `normal` and `uv`.
 
-在演示 Demo 中，你可以看到所有几何体形状，并且可以选择调试选项，以可视化方式查看 `法线` 和 `贴图坐标（UV）`。
+在演示 Demo 中，你可以看到所有几何体形状，并且可以选择调试选项，以可视化方式查看 `法线` 和 `贴图坐标（UV）`。  
+
+![shapes-gif](./Resources/shapes-gif.gif)
 
 ![Tetrahedron-none](./Resources/Tetrahedron-none.png)
 
@@ -126,7 +124,12 @@ Xander: API 搬运工
 * [https://juejin.cn/user/2629687543092056](https://juejin.cn/user/2629687543092056)
 
 
+## Related Package 相关框架
 
+This project is inspired by the following two frameworks, particularly Euclid, and is greatly appreciated:  
+本项目思路来自于以下两个框架，受它们激发而产生，尤其是 `Euclid`，非常感谢：  
+* [RealityGeometries](https://github.com/maxxfrazer/RealityGeometries)：Add more geometries to your RealityKit projects
+* [Euclid](https://github.com/nicklockwood/Euclid)：Euclid is a Swift library for creating and manipulating 3D geometry using techniques such as extruding or "lathing" 2D paths to create solid 3D shapes, and CSG (Constructive Solid Geometry) to combine or subtract those shapes from one another.
 
 
 ## License 证书
