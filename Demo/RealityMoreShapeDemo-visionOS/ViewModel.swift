@@ -168,7 +168,7 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try MeshResource.generateIcosahedron(radius: 0.1, res: 3)
                 return mesh
             case 14:
-                let mesh = try MeshResource.generateGeoSphere(radius: 0.1, res: 3)
+                let mesh = try await MeshResource.generateGeoSphereAsync(radius: 0.1, res: 3)
                 return mesh
             case 15:
                 let mesh = try await MeshResource.generateExtrudedRoundedRectPadAsync(width: 0.2, height: 0.2, depth: 0.1, radius: 0.05, splitFaces: false, circleUV: false)
@@ -177,7 +177,7 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try await MeshResource.generateRoundedCubeAsync(width: 0.2, height: 0.2, depth: 0.2, radius: 0.1, widthResolution: 20, heightResolution: 20, depthResolution: 20, splitFaces: false)
                 return mesh
             case 17:
-                let mesh = try MeshResource.generateCubeSphere(radius: 0.1, resolution: 20, splitFaces: false)
+                let mesh = try await MeshResource.generateCubeSphereAsync(radius: 0.1, resolution: 20, splitFaces: false)
                 return mesh
             default:
                 return nil
