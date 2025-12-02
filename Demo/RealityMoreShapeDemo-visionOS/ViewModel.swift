@@ -141,7 +141,7 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try await MeshResource.generateConeAsync(radius: 0.1, height: 0.15, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: true, circleUV: false)
                 return mesh
             case 5:
-                let mesh = try MeshResource.generateCylinder(radius: 0.05, height: 0.2, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: false, circleUV: false)
+                let mesh = try await MeshResource.generateCylinderAsync(radius: 0.05, height: 0.2, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: true, circleUV: false)
                 return mesh
             case 6:
                 let mesh = try await MeshResource.generateCapsuleAsync(radius: 0.05, height: 0.1, angularResolution: 24, radialResolution: 5, verticalResolution: 3, splitFaces: true)
