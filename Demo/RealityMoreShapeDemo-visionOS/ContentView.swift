@@ -47,7 +47,7 @@ struct ContentView: View {
                     
                     
                     if let mesh = await model.generateShapeOfIndexAsync(selectedIndex) {
-                        let modelEntity = ModelEntity(mesh:mesh, materials: [m,m,m2])
+                        let modelEntity = ModelEntity(mesh:mesh, materials: [m,m2])
                         modelEntity.name = "model"
                         content.add(modelEntity)
                         model.modelEntity = modelEntity

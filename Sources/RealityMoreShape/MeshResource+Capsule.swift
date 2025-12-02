@@ -193,12 +193,6 @@ extension MeshResource {
         var indices1: [UInt32] = []
         var normals1: [SIMD3<Float>] = []
         var textureMap1: [SIMD2<Float>] = []
-        
-        var meshPositions2: [SIMD3<Float>] = []
-        var indices2: [UInt32] = []
-        var normals2: [SIMD3<Float>] = []
-        var textureMap2: [SIMD2<Float>] = []
-        
                 
         let phi = angularResolution > 2 ? angularResolution : 3;
         let theta = radialResolution > 0 ? radialResolution : 1;
@@ -360,7 +354,7 @@ extension MeshResource {
         part0.normals = .init(normals0)
         part0.positions = .init(meshPositions0)
         
-        var part1 = MeshResource.Part(id: "MeshPart1", materialIndex: 1)
+        var part1 = MeshResource.Part(id: "MeshPart1", materialIndex: splitFaces ? 1 : 0)
         part1.triangleIndices = .init(indices1)
         part1.textureCoordinates = .init(textureMap1)
         part1.normals = .init(normals1)
