@@ -44,6 +44,59 @@ extension MeshResource {
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
         return try .generate(from: [descr])
     }
+    
+    /// Creates a new plane mesh with the specified values asynchronously.
+    /// - Parameters:
+    ///   - width: Width of the output plane
+    ///   - depth: Depth of the output plane
+    ///   - vertices: Vertex count in the x and z axis
+    /// - Returns: A plane mesh
+    public static func generateDetailedPlaneAsync(
+        width: Float, height: Float, vertices: (Int, Int)
+    ) async throws -> MeshResource {
+        // Create arrays for positions, indices and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var textureMap: [SIMD2<Float>] = []
+        
+        // Generate geometry data
+        for x_v in 0..<(vertices.0) {
+            let vertexCounts = meshPositions.count
+            for y_v in 0..<(vertices.1) {
+                meshPositions.append([
+                    (Float(x_v) / Float(vertices.0 - 1) - 0.5) * width,
+                    0,
+                    (0.5 - Float(y_v) / Float(vertices.1 - 1)) * height
+                ])
+                textureMap.append([Float(x_v) / Float(vertices.0 - 1), Float(y_v) / Float(vertices.1 - 1)])
+                if x_v > 0 && y_v > 0 {
+                    indices.append(
+                        contentsOf: [
+                            vertexCounts - vertices.1, vertexCounts, vertexCounts - vertices.1 + 1,
+                            vertexCounts - vertices.1 + 1, vertexCounts, vertexCounts + 1
+                        ].map { UInt32($0 + y_v - 1) })
+                }
+            }
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "DetailedPlane", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "DetailedPlaneModel", parts: [part])
+        let instance = MeshResource.Instance(id: "DetailedPlaneModel-0", model: "DetailedPlaneModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     public static func generateCirclePlane(radius: Float, angularResolution: Int = 24, radialResolution: Int = 1, circleUV: Bool = true) throws -> MeshResource {
         var descr = MeshDescriptor()
         var meshPositions: [SIMD3<Float>] = []
@@ -97,6 +150,73 @@ extension MeshResource {
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
         return try .generate(from: [descr])
     }
+    
+    public static func generateCirclePlaneAsync(radius: Float, angularResolution: Int = 24, radialResolution: Int = 1, circleUV: Bool = true) async throws -> MeshResource {
+        // Create arrays for positions, indices and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var textureMap: [SIMD2<Float>] = []
+        
+        let radial = radialResolution > 0 ? radialResolution : 1
+        let angular = angularResolution > 2 ? angularResolution : 3;
+
+        let radialf = Float(radial)
+        let angularf = Float(angular)
+        
+        let radialInc = radius / radialf
+        let angularInc = (2.0 * Float.pi) / angularf
+
+        let perLoop = angular + 1
+
+        for r in 0...radial {
+            let rf = Float(r)
+            let rad = rf * radialInc
+            let rFactor = rf / radialf
+            for a in 0...angular {
+                let af = Float(a)
+                let angle = af * angularInc
+                let ca = cos(angle)
+                let sa = sin(angle)
+
+                meshPositions.append(SIMD3<Float>(rad * ca, 0, rad * sa))
+                if circleUV {
+                    textureMap.append(SIMD2<Float>(rFactor, 1 - af / angularf))
+                } else {
+                    textureMap.append(SIMD2<Float>((ca*rFactor)/2+0.5, 0.5-(sa*rFactor)/2))
+                }
+                
+                if (r != radial && a != angular) {
+                    let index = UInt32(a + r * perLoop)
+
+                    let tl = index
+                    let tr = tl + 1
+                    let bl = index + UInt32(perLoop)
+                    let br = bl + 1
+
+                    indices.append(contentsOf: [tr,bl,tl,
+                                                br,bl,tr])
+                }
+            }
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "CirclePlane", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "CirclePlaneModel", parts: [part])
+        let instance = MeshResource.Instance(id: "CirclePlaneModel-0", model: "CirclePlaneModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     public static func generateArcPlane(innerRadius: Float, outerRadius: Float, startAngle: Float, endAngle: Float, angularResolution: Int = 12, radialResolution: Int = 1, circleUV: Bool = true) throws -> MeshResource {
         var descr = MeshDescriptor()
         var meshPositions: [SIMD3<Float>] = []
@@ -151,6 +271,73 @@ extension MeshResource {
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
         return try .generate(from: [descr])
     }
+    
+    public static func generateArcPlaneAsync(innerRadius: Float, outerRadius: Float, startAngle: Float, endAngle: Float, angularResolution: Int = 12, radialResolution: Int = 1, circleUV: Bool = true) async throws -> MeshResource {
+        // Create arrays for positions, indices and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var textureMap: [SIMD2<Float>] = []
+        
+        let radial = radialResolution > 0 ? radialResolution : 1
+        let angular = angularResolution > 2 ? angularResolution : 3;
+
+        let radialf = Float(radial)
+        let angularf = Float(angular)
+        
+        let radialInc = (outerRadius - innerRadius) / radialf
+        let angularInc = (endAngle - startAngle) / angularf
+
+        let perArc = angular + 1
+        
+        for r in 0...radial {
+            let rf = Float(r)
+            let rad = innerRadius + rf * radialInc
+            let rFactor = rad / outerRadius
+            for a in 0...angular {
+                let af = Float(a)
+                let angle = startAngle + af * angularInc
+                let ca = cos(angle)
+                let sa = sin(angle)
+
+                meshPositions.append(SIMD3<Float>(rad * ca, 0, rad * sa))
+                if circleUV {
+                    textureMap.append(SIMD2<Float>(rf / radialf, 1 - af / angularf))
+                } else {
+                    textureMap.append(SIMD2<Float>((ca*rFactor)/2+0.5, 0.5-(sa*rFactor)/2))
+                }
+                
+                if (r != radial && a != angular) {
+                    let index = UInt32(a + r * perArc)
+
+                    let br = index
+                    let bl = br + 1
+                    let tr = br + UInt32(perArc)
+                    let tl = bl + UInt32(perArc)
+
+                    indices.append(contentsOf: [tr,br,bl,
+                                                tl,tr,bl])
+                }
+            }
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "ArcPlane", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "ArcPlaneModel", parts: [part])
+        let instance = MeshResource.Instance(id: "ArcPlaneModel-0", model: "ArcPlaneModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     public static func generateSquirclePlane(size: Float, p: Float = 4, angularResolution: Int = 24, radialResolution: Int  = 1, circleUV: Bool = true) throws -> MeshResource {
         var descr = MeshDescriptor()
         var meshPositions: [SIMD3<Float>] = []
@@ -203,6 +390,72 @@ extension MeshResource {
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
         return try .generate(from: [descr])
     }
+    
+    public static func generateSquirclePlaneAsync(size: Float, p: Float = 4, angularResolution: Int = 24, radialResolution: Int  = 1, circleUV: Bool = true) async throws -> MeshResource {
+        // Create arrays for positions, indices and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var textureMap: [SIMD2<Float>] = []
+        
+        let rad = size * 0.5
+        let angular = angularResolution > 2 ? angularResolution : 3
+        let radial = radialResolution > 1 ? radialResolution : 1
+
+        let perLoop = angular + 1
+        for r in 0...radial {
+            let k = Float(r) / Float(radial)
+            let radius = map(input: Float(r), inMin: 0, inMax: Float(radial), outMin: 0, outMax: rad)
+            for a in 0...angular {
+                let t = Float(a) / Float(angular)
+                let theta = 2.0 * .pi * t
+
+                let cost = cos(theta)
+                let sint = sin(theta)
+
+                let den = pow(abs(cost), p) + pow(abs(sint), p)
+                let phi = 1.0 / pow(den, 1.0 / p)
+
+                let x = radius * phi * cost
+                let z = radius * phi * sint
+                meshPositions.append(SIMD3<Float>(x, 0, z))
+                if circleUV {
+                    textureMap.append(SIMD2<Float>(t, k))
+                } else {
+                    textureMap.append(SIMD2<Float>(x/size+0.5, -z/size+0.5))
+                }
+                
+                if (r != radial && a != angular) {
+                    let index = UInt32(a + r * perLoop)
+
+                    let tl = index
+                    let tr = tl + 1
+                    let bl = index + UInt32(perLoop)
+                    let br = bl + 1
+
+                    indices.append(contentsOf: [tr,bl,tl,
+                                                br,bl,tr])
+                }
+            }
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "SquirclePlane", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "SquirclePlaneModel", parts: [part])
+        let instance = MeshResource.Instance(id: "SquirclePlaneModel-0", model: "SquirclePlaneModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     public static func map(input: Float, inMin: Float, inMax:Float, outMin:Float, outMax: Float) -> Float {
         return ((input - inMin) / (inMax - inMin) * (outMax - outMin)) + outMin;
     }
@@ -219,6 +472,27 @@ extension MeshResource {
         descr.positions = MeshBuffer(datas.meshPositions)
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(datas.textureMap)
         return try .generate(from: [descr])
+    }
+    public static func generateRoundedRectPlaneAsync(width: Float, height: Float, radius: Float, angularResolution: Int = 24, edgeXResolution: Int = 2, edgeYResolution: Int = 2, radialResolution: Int = 2, circleUV: Bool = true) async throws -> MeshResource {
+        // Generate rounded rectangle plane data
+        let datas = generateRoundedRectPlaneDatas(width: width, height: height, radius: radius, angularResolution: angularResolution, edgeXResolution: edgeXResolution, edgeYResolution: edgeYResolution, radialResolution: radialResolution, circleUV: circleUV)
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "RoundedRectPlane", materialIndex: 0)
+        part.triangleIndices = .init(datas.indices)
+        part.textureCoordinates = .init(datas.textureMap)
+        part.positions = .init(datas.meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "RoundedRectPlaneModel", parts: [part])
+        let instance = MeshResource.Instance(id: "RoundedRectPlaneModel-0", model: "RoundedRectPlaneModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
     }
     public static func generateRoundedRectPlaneDatas(width: Float, height: Float, radius: Float, angularResolution: Int, edgeXResolution: Int, edgeYResolution: Int, radialResolution: Int, circleUV: Bool) -> (meshPositions: [SIMD3<Float>], indices: [UInt32], textureMap: [SIMD2<Float>]) {
         var meshPositions: [SIMD3<Float>] = []

@@ -126,16 +126,16 @@ class ViewModel: @unchecked Sendable {
         do {
             switch index {
             case 0:
-                let mesh = try MeshResource.generateCirclePlane(radius:0.1, angularResolution: 30, radialResolution: 5, circleUV: true)
+                let mesh = try await MeshResource.generateCirclePlaneAsync(radius:0.1, angularResolution: 30, radialResolution: 5, circleUV: true)
                 return mesh
             case 1:
-                let mesh = try MeshResource.generateArcPlane(innerRadius: 0.02, outerRadius: 0.1, startAngle: 0, endAngle: .pi, angularResolution: 30, radialResolution: 5, circleUV: true)
+                let mesh = try await MeshResource.generateArcPlaneAsync(innerRadius: 0.02, outerRadius: 0.1, startAngle: 0, endAngle: .pi, angularResolution: 30, radialResolution: 5, circleUV: true)
                 return mesh
             case 2:
-                let mesh = try MeshResource.generateSquirclePlane(size: 0.2, p: 4, angularResolution: 30, radialResolution: 5, circleUV: true)
+                let mesh = try await MeshResource.generateSquirclePlaneAsync(size: 0.2, p: 4, angularResolution: 30, radialResolution: 5, circleUV: true)
                 return mesh
             case 3:
-                let mesh = try MeshResource.generateRoundedRectPlane(width: 0.2, height: 0.2, radius: 0.05, angularResolution: 10, edgeXResolution: 5, edgeYResolution: 5, radialResolution: 5, circleUV: true)
+                let mesh = try await MeshResource.generateRoundedRectPlaneAsync(width: 0.2, height: 0.2, radius: 0.05, angularResolution: 10, edgeXResolution: 5, edgeYResolution: 5, radialResolution: 5, circleUV: true)
                 return mesh
             case 4:
                 let mesh = try await MeshResource.generateConeAsync(radius: 0.1, height: 0.15, angularResolution: 24, radialResolution: 2, verticalResolution: 3, splitFaces: true, circleUV: false)
@@ -147,10 +147,10 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try await MeshResource.generateCapsuleAsync(radius: 0.05, height: 0.1, angularResolution: 24, radialResolution: 5, verticalResolution: 3, splitFaces: true)
                 return mesh
             case 7:
-                let mesh = try MeshResource.generateTorus(minorRadius: 0.02, majorRadius: 0.1)
+                let mesh = try await MeshResource.generateTorusAsync(minorRadius: 0.02, majorRadius: 0.1)
                 return mesh
             case 8:
-                let mesh = try MeshResource.generateLissajousCurveTorus(minorRadius: 0.008, majorRadius: 0.1, height: 0.1, cycleTimes: 4, majorResolution: 96)
+                let mesh = try await MeshResource.generateLissajousCurveTorusAsync(minorRadius: 0.008, majorRadius: 0.1, height: 0.1, cycleTimes: 4, majorResolution: 96)
                 return mesh
             case 9:
                 let mesh = try MeshResource.generateTetrahedron(radius: 0.1, res: 3)
