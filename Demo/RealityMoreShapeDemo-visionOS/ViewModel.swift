@@ -153,19 +153,19 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try await MeshResource.generateLissajousCurveTorusAsync(minorRadius: 0.008, majorRadius: 0.1, height: 0.1, cycleTimes: 4, majorResolution: 96)
                 return mesh
             case 9:
-                let mesh = try MeshResource.generateTetrahedron(radius: 0.1, res: 3)
+                let mesh = try await MeshResource.generateTetrahedronAsync(radius: 0.1, res: 0)
                 return mesh
             case 10:
                 let mesh = try MeshResource.generateHexahedron(radius: 0.1, res: 3)
                 return mesh
             case 11:
-                let mesh = try MeshResource.generateOctahedron(radius: 0.1, res: 3)
+                let mesh = try await MeshResource.generateOctahedronAsync(radius: 0.1, res: 0)
                 return mesh
             case 12:
-                let mesh = try MeshResource.generateDodecahedron(radius: 0.1, res: 3)
+                let mesh = try MeshResource.generateDodecahedron(radius: 0.1, res: 0)
                 return mesh
             case 13:
-                let mesh = try MeshResource.generateIcosahedron(radius: 0.1, res: 3)
+                let mesh = try await MeshResource.generateIcosahedronAsync(radius: 0.1, res: 0)
                 return mesh
             case 14:
                 let mesh = try await MeshResource.generateGeoSphereAsync(radius: 0.1, res: 3)

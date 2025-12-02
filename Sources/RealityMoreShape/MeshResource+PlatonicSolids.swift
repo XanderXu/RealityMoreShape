@@ -126,6 +126,138 @@ extension MeshResource {
         descr.primitives = .triangles(indices)
         return try MeshResource.generate(from: [descr])
     }
+    
+    /// 正四面体异步版本，radius 为外接球半径，res 三角面剖分次数
+    public static func generateTetrahedronAsync(radius: Float, res: Int = 0) async throws -> MeshResource {
+        let pointCount = 4
+        var triangles = 4
+        var vertices = pointCount * 3
+        
+        // Create arrays for positions, indices, normals and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var normals: [SIMD3<Float>] = Array(repeating: .zero, count: vertices)
+        var textureMap: [SIMD2<Float>] = []
+        
+        let a: Float = 4 * radius / sqrtf(6)//棱长
+        let r = radius / 3 //内切球半径
+        let bz = sqrtf(2) * 2 * r
+        let points: [SIMD3<Float>] = [
+            SIMD3<Float>(0, radius, 0),
+            SIMD3<Float>(a/2, -r, -sqrtf(2)*r),
+            SIMD3<Float>(0, -r, bz),
+            SIMD3<Float>(-a/2, -r, -sqrtf(2)*r)
+        ]
+        meshPositions.append(contentsOf: points + points + points)
+        
+        let index: [UInt32] = [
+            0, 2, 1,
+            0, 3, 2,
+            0, 1, 3,
+            2, 3, 1
+        ]
+        var countDict: [UInt32:Int] = [:]
+        for ind in index {
+            let count = countDict[ind] ?? 0
+            indices.append(ind + UInt32(pointCount * count))
+            countDict[ind] = count + 1
+        }
+        
+        for i in 0..<triangles {
+            let ai = 3 * i
+            let bi = 3 * i + 1
+            let ci = 3 * i + 2
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            
+            let v0 = meshPositions[Int(i0)]
+            let v1 = meshPositions[Int(i1)]
+            let v2 = meshPositions[Int(i2)]
+            
+            let faceNormal = simd_normalize((v0 + v1 + v2) / 3)
+            normals[Int(i0)] = faceNormal
+            normals[Int(i1)] = faceNormal
+            normals[Int(i2)] = faceNormal
+        }
+        
+        for _ in 0..<res {
+            let newTriangles = triangles * 4
+            let newVertices = vertices + triangles * 3
+            
+            var newIndices: [UInt32] = []
+            var pos: SIMD3<Float>
+            
+            for i in 0..<triangles {
+                let ai = 3 * i
+                let bi = 3 * i + 1
+                let ci = 3 * i + 2
+                
+                let i0 = indices[ai]
+                let i1 = indices[bi]
+                let i2 = indices[ci]
+                
+                let v0 = meshPositions[Int(i0)]
+                let v1 = meshPositions[Int(i1)]
+                let v2 = meshPositions[Int(i2)]
+                
+                let faceNormal = normals[Int(i0)]
+                normals.append(contentsOf: [faceNormal, faceNormal, faceNormal])
+                // a
+                pos = (v0 + v1) * 0.5
+                meshPositions.append(pos)
+
+                // b
+                pos = (v1 + v2) * 0.5
+                meshPositions.append(pos)
+                
+                // c
+                pos = (v2 + v0) * 0.5
+                meshPositions.append(pos)
+                
+                let a = UInt32(ai + vertices)
+                let b = UInt32(bi + vertices)
+                let c = UInt32(ci + vertices)
+                newIndices.append(contentsOf: [
+                    i0, a, c,
+                    a, i1, b,
+                    a, b, c,
+                    c, b, i2
+                ])
+            }
+            
+            indices = newIndices
+            triangles = newTriangles
+            vertices = newVertices
+        }
+        
+        for i in 0..<meshPositions.count {
+            let p = meshPositions[i]
+            let n = p
+          
+            textureMap.append(SIMD2<Float>(abs(atan2(n.x, n.z)) / .pi, 1 - acos(n.y/radius) / .pi))
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "Tetrahedron", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.normals = .init(normals)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "TetrahedronModel", parts: [part])
+        let instance = MeshResource.Instance(id: "TetrahedronModel-0", model: "TetrahedronModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     /// 正六面体（立方体），radius 为外接球半径，res 四边形平面剖分次数
     public static func generateHexahedron(radius: Float, res: Int = 0) throws -> MeshResource {
         let pointCount = 8
@@ -265,6 +397,7 @@ extension MeshResource {
         descr.primitives = .trianglesAndQuads(triangles: [], quads: indices)
         return try MeshResource.generate(from: [descr])
     }
+    
     /// 正八面体，radius 为外接球半径，res 三角面剖分次数
     public static func generateOctahedron(radius: Float, res: Int = 0) throws -> MeshResource {
         let pointCount = 6
@@ -360,7 +493,6 @@ extension MeshResource {
                 pos = (v2 + v0) * 0.5
                 meshPositions.append(pos)
                 
-                
                 let a = UInt32(ai + vertices)
                 let b = UInt32(bi + vertices)
                 let c = UInt32(ci + vertices)
@@ -389,6 +521,144 @@ extension MeshResource {
         descr.primitives = .triangles(indices)
         return try MeshResource.generate(from: [descr])
     }
+    
+    /// 正八面体异步版本，radius 为外接球半径，res 三角面剖分次数
+    public static func generateOctahedronAsync(radius: Float, res: Int = 0) async throws -> MeshResource {
+        let pointCount = 6
+        var triangles = 8
+        var vertices = pointCount * 4
+        
+        // Create arrays for positions, indices, normals and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var normals: [SIMD3<Float>] = Array(repeating: .zero, count: vertices)
+        var textureMap: [SIMD2<Float>] = []
+        
+        let a: Float = radius * sqrtf(2)//棱长
+        let rm = a / 2 // 中交球半径(过棱中点)
+        let points: [SIMD3<Float>] = [
+            SIMD3<Float>(0, radius, 0),
+            SIMD3<Float>(rm, 0, rm),
+            SIMD3<Float>(-rm, 0, rm),
+            SIMD3<Float>(-rm, 0, -rm),
+            SIMD3<Float>(rm, 0, -rm),
+            SIMD3<Float>(0, -radius, 0)
+        ]
+        meshPositions.append(contentsOf: points + points + points + points)
+        
+        let index: [UInt32] = [
+            0, 2, 1,
+            0, 3, 2,
+            0, 4, 3,
+            0, 1, 4,
+            
+            5, 1, 2,
+            5, 2, 3,
+            5, 3, 4,
+            5, 4, 1
+        ]
+        var countDict: [UInt32:Int] = [:]
+        for ind in index {
+            let count = countDict[ind] ?? 0
+            indices.append(ind + UInt32(pointCount * count))
+            countDict[ind] = count + 1
+        }
+        
+        for i in 0..<triangles {
+            let ai = 3 * i
+            let bi = 3 * i + 1
+            let ci = 3 * i + 2
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            
+            let v0 = meshPositions[Int(i0)]
+            let v1 = meshPositions[Int(i1)]
+            let v2 = meshPositions[Int(i2)]
+            
+            let faceNormal = simd_normalize((v0 + v1 + v2) / 3)
+            normals[Int(i0)] = faceNormal
+            normals[Int(i1)] = faceNormal
+            normals[Int(i2)] = faceNormal
+        }
+        
+        for _ in 0..<res {
+            let newTriangles = triangles * 4
+            let newVertices = vertices + triangles * 3
+            
+            var newIndices: [UInt32] = []
+            var pos: SIMD3<Float>
+            
+            for i in 0..<triangles {
+                let ai = 3 * i
+                let bi = 3 * i + 1
+                let ci = 3 * i + 2
+                
+                let i0 = indices[ai]
+                let i1 = indices[bi]
+                let i2 = indices[ci]
+                
+                let v0 = meshPositions[Int(i0)]
+                let v1 = meshPositions[Int(i1)]
+                let v2 = meshPositions[Int(i2)]
+                
+                let faceNormal = normals[Int(i0)]
+                normals.append(contentsOf: [faceNormal, faceNormal, faceNormal])
+                // a
+                pos = (v0 + v1) * 0.5
+                meshPositions.append(pos)
+
+                // b
+                pos = (v1 + v2) * 0.5
+                meshPositions.append(pos)
+                
+                // c
+                pos = (v2 + v0) * 0.5
+                meshPositions.append(pos)
+                
+                let a = UInt32(ai + vertices)
+                let b = UInt32(bi + vertices)
+                let c = UInt32(ci + vertices)
+                newIndices.append(contentsOf: [
+                    i0, a, c,
+                    a, i1, b,
+                    a, b, c,
+                    c, b, i2
+                ])
+            }
+            
+            indices = newIndices
+            triangles = newTriangles
+            vertices = newVertices
+        }
+        
+        for i in 0..<meshPositions.count {
+            let p = meshPositions[i]
+            let n = p
+          
+            textureMap.append(SIMD2<Float>(abs(atan2(n.x, n.z)) / .pi, 1 - acos(n.y/radius) / .pi))
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "Octahedron", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.normals = .init(normals)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "OctahedronModel", parts: [part])
+        let instance = MeshResource.Instance(id: "OctahedronModel-0", model: "OctahedronModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
+    }
+    
     /// 正十二面体，radius 为外接球半径，res 五边形面剖分次数
     public static func generateDodecahedron(radius: Float, res: Int = 0) throws -> MeshResource {
         let pointCount = 20
@@ -576,6 +846,7 @@ extension MeshResource {
         }
         return try MeshResource.generate(from: [descr])
     }
+    
     /// 正二十面体，，radius 为外接球半径，res 三角形面剖分次数
     public static func generateIcosahedron(radius: Float, res: Int = 0) throws -> MeshResource {
         let pointCount = 12
@@ -726,5 +997,168 @@ extension MeshResource {
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
         descr.primitives = .triangles(indices)
         return try MeshResource.generate(from: [descr])
+    }
+    
+    /// 正二十面体异步版本，radius 为外接球半径，res 三角形面剖分次数
+    public static func generateIcosahedronAsync(radius: Float, res: Int = 0) async throws -> MeshResource {
+        let pointCount = 12
+        var triangles = 20
+        var vertices = pointCount * 5
+        
+        // Create arrays for positions, indices, normals and texture coordinates
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var normals: [SIMD3<Float>] = Array(repeating: .zero, count: vertices)
+        var textureMap: [SIMD2<Float>] = []
+        
+        let phi = (1.0 + sqrtf(5)) * 0.5
+        let r2 = radius * radius
+        let den = (1.0 + (1.0 / pow(phi, 2.0)))
+        let h = sqrt(r2 / (den))
+        let w = h / phi
+
+        let points = [
+            SIMD3<Float>(0.0, h, w),
+            SIMD3<Float>(0.0, h, -w),
+            SIMD3<Float>(0.0, -h, w),
+            SIMD3<Float>(0.0, -h, -w),
+
+            SIMD3<Float>(h, -w, 0.0),
+            SIMD3<Float>(h, w, 0.0),
+            SIMD3<Float>(-h, -w, 0.0),
+            SIMD3<Float>(-h, w, 0.0),
+
+            SIMD3<Float>(-w, 0.0, -h),
+            SIMD3<Float>(w, 0.0, -h),
+            SIMD3<Float>(-w, 0.0, h),
+            SIMD3<Float>(w, 0.0, h)
+        ]
+        meshPositions.append(contentsOf: points + points + points + points + points)
+        
+        let index: [UInt32] = [
+            0, 11, 5,
+            0, 5, 1,
+            0, 1, 7,
+            0, 7, 10,
+            0, 10, 11,
+
+            1, 5, 9,
+            5, 11, 4,
+            11, 10, 2,
+            10, 7, 6,
+            7, 1, 8,
+
+            3, 9, 4,
+            3, 4, 2,
+            3, 2, 6,
+            3, 6, 8,
+            3, 8, 9,
+
+            4, 9, 5,
+            2, 4, 11,
+            6, 2, 10,
+            8, 6, 7,
+            9, 8, 1
+        ]
+        var countDict: [UInt32:Int] = [:]
+        for ind in index {
+            let count = countDict[ind] ?? 0
+            indices.append(ind + UInt32(pointCount * count))
+            countDict[ind] = count + 1
+        }
+        
+        for i in 0..<triangles {
+            let ai = 3 * i
+            let bi = 3 * i + 1
+            let ci = 3 * i + 2
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            
+            let v0 = meshPositions[Int(i0)]
+            let v1 = meshPositions[Int(i1)]
+            let v2 = meshPositions[Int(i2)]
+            
+            let faceNormal = simd_normalize((v0 + v1 + v2) / 3)
+            normals[Int(i0)] = faceNormal
+            normals[Int(i1)] = faceNormal
+            normals[Int(i2)] = faceNormal
+        }
+        
+        for _ in 0..<res {
+            let newTriangles = triangles * 4
+            let newVertices = vertices + triangles * 3
+            
+            var newIndices: [UInt32] = []
+            var pos: SIMD3<Float>
+            
+            for i in 0..<triangles {
+                let ai = 3 * i
+                let bi = 3 * i + 1
+                let ci = 3 * i + 2
+                
+                let i0 = indices[ai]
+                let i1 = indices[bi]
+                let i2 = indices[ci]
+                
+                let v0 = meshPositions[Int(i0)]
+                let v1 = meshPositions[Int(i1)]
+                let v2 = meshPositions[Int(i2)]
+                
+                let faceNormal = normals[Int(i0)]
+                normals.append(contentsOf: [faceNormal, faceNormal, faceNormal])
+                // a
+                pos = (v0 + v1) * 0.5
+                meshPositions.append(pos)
+
+                // b
+                pos = (v1 + v2) * 0.5
+                meshPositions.append(pos)
+                
+                // c
+                pos = (v2 + v0) * 0.5
+                meshPositions.append(pos)
+                
+                let a = UInt32(ai + vertices)
+                let b = UInt32(bi + vertices)
+                let c = UInt32(ci + vertices)
+                newIndices.append(contentsOf: [
+                    i0, a, c,
+                    a, i1, b,
+                    a, b, c,
+                    c, b, i2
+                ])
+            }
+            
+            indices = newIndices
+            triangles = newTriangles
+            vertices = newVertices
+        }
+        
+        for i in 0..<meshPositions.count {
+            let p = meshPositions[i]
+            let n = p
+          
+            textureMap.append(SIMD2<Float>(abs(atan2(n.x, n.z)) / .pi, 1 - acos(n.y/radius) / .pi))
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "Icosahedron", materialIndex: 0)
+        part.triangleIndices = .init(indices)
+        part.textureCoordinates = .init(textureMap)
+        part.normals = .init(normals)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "IcosahedronModel", parts: [part])
+        let instance = MeshResource.Instance(id: "IcosahedronModel-0", model: "IcosahedronModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
     }
 }
