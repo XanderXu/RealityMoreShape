@@ -46,7 +46,7 @@ struct ContentView: View {
                     m2.baseColor = .init(tint: .red, texture: nil)
                     
                     
-                    if let mesh = model.generateShapeOfIndex(selectedIndex) {
+                    if let mesh = await model.generateShapeOfIndexAsync(selectedIndex) {
                         let modelEntity = ModelEntity(mesh:mesh, materials: [m,m,m2])
                         modelEntity.name = "model"
                         content.add(modelEntity)
@@ -73,8 +73,10 @@ struct ContentView: View {
             .navigationTitle(model.meshNamesLocal[selectedIndex])
             .onChange(of: selectedIndex) { oldValue, newValue in
                 debugPrint("onChange")
-                if let mesh = model.generateShapeOfIndex(selectedIndex) {
-                    model.modelEntity?.model?.mesh = mesh
+                Task {
+                    if let mesh = await model.generateShapeOfIndexAsync(selectedIndex) {
+                        model.modelEntity?.model?.mesh = mesh
+                    }
                 }
             }
             
