@@ -162,7 +162,7 @@ class ViewModel: @unchecked Sendable {
                 let mesh = try await MeshResource.generateOctahedronAsync(radius: 0.1, res: 0)
                 return mesh
             case 12:
-                let mesh = try MeshResource.generateDodecahedron(radius: 0.1, res: 2)
+                let mesh = try await MeshResource.generateDodecahedronAsync(radius: 0.1, res: 0)
                 return mesh
             case 13:
                 let mesh = try await MeshResource.generateIcosahedronAsync(radius: 0.1, res: 0)
