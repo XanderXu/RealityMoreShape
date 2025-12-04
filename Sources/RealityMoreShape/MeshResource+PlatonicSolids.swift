@@ -923,6 +923,7 @@ extension MeshResource {
             countDict[ind] = count + 1
         }
         
+        var newIndices0: [UInt32] = []
         var newIndices1: [UInt32] = []
         for i in 0..<pentagons {
             let ai = 5 * i
@@ -951,25 +952,36 @@ extension MeshResource {
             normals[Int(i3)] = faceNormal
             normals[Int(i4)] = faceNormal
             
-            meshPositions.append(faceCenter)
-            normals.append(faceNormal)
-            
-            let center = UInt32(vertices + i)
-            newIndices1.append(contentsOf: [
-                i0, i1, center,
-                i1, i2, center,
-                i2, i3, center,
-                i3, i4, center,
-                i4, i0, center
-            ])
+            if res == 0 {
+                newIndices0.append(contentsOf: [
+                    i0, i1, i3,
+                    i0, i3, i4,
+                    i1, i2, i3,
+                ])
+            } else if res > 0 {
+                meshPositions.append(faceCenter)
+                normals.append(faceNormal)
+                
+                let center = UInt32(vertices + i)
+                newIndices1.append(contentsOf: [
+                    i0, i1, center,
+                    i1, i2, center,
+                    i2, i3, center,
+                    i3, i4, center,
+                    i4, i0, center
+                ])
+            }
         }
-        
-        vertices += pentagons
-        indices = newIndices1
+        if res == 0 {
+            indices = newIndices0
+        } else if res > 0 {
+            vertices += pentagons
+            indices = newIndices1
+        }
 
         if res > 0 {
             var triangles = pentagons * 5
-            for _ in 0..<res {
+            for _ in 1..<res {
                 let newTriangles = triangles * 4
                 let newVertices = vertices + triangles * 3
                 
@@ -1103,6 +1115,7 @@ extension MeshResource {
             countDict[ind] = count + 1
         }
         
+        var newIndices0: [UInt32] = []
         var newIndices1: [UInt32] = []
         for i in 0..<pentagons {
             let ai = 5 * i
@@ -1131,25 +1144,36 @@ extension MeshResource {
             normals[Int(i3)] = faceNormal
             normals[Int(i4)] = faceNormal
             
-            meshPositions.append(faceCenter)
-            normals.append(faceNormal)
-            
-            let center = UInt32(vertices + i)
-            newIndices1.append(contentsOf: [
-                i0, i1, center,
-                i1, i2, center,
-                i2, i3, center,
-                i3, i4, center,
-                i4, i0, center
-            ])
+            if res == 0 {
+                newIndices0.append(contentsOf: [
+                    i0, i1, i3,
+                    i0, i3, i4,
+                    i1, i2, i3,
+                ])
+            } else if res > 0 {
+                meshPositions.append(faceCenter)
+                normals.append(faceNormal)
+                
+                let center = UInt32(vertices + i)
+                newIndices1.append(contentsOf: [
+                    i0, i1, center,
+                    i1, i2, center,
+                    i2, i3, center,
+                    i3, i4, center,
+                    i4, i0, center
+                ])
+            }
+        }
+        if res == 0 {
+            indices = newIndices0
+        } else if res > 0 {
+            vertices += pentagons
+            indices = newIndices1
         }
         
-        vertices += pentagons
-        indices = newIndices1
-
         if res > 0 {
             var triangles = pentagons * 5
-            for _ in 0..<res {
+            for _ in 1..<res {
                 let newTriangles = triangles * 4
                 let newVertices = vertices + triangles * 3
                 
