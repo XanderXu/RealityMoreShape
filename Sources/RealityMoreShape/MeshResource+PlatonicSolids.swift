@@ -302,6 +302,7 @@ extension MeshResource {
             countDict[ind] = count + 1
         }
         
+        // Calculate normals for initial vertices
         for i in 0..<quads {
             let ai = 4 * i
             let bi = 4 * i + 1
@@ -325,6 +326,7 @@ extension MeshResource {
             normals[Int(i3)] = faceNormal
         }
         
+        // Handle subdivision
         for _ in 0..<res {
             let newQuads = quads * 4
             let newVertices = vertices + quads * 5
@@ -385,6 +387,25 @@ extension MeshResource {
             vertices = newVertices
         }
         
+        // Convert quads to triangles
+        var triangleIndices: [UInt32] = []
+        for i in 0..<quads {
+            let ai = 4 * i
+            let bi = 4 * i + 1
+            let ci = 4 * i + 2
+            let di = 4 * i + 3
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            let i3 = indices[di]
+            
+            // 将四边形分解为两个三角形
+            // 第一个三角形: i0, i1, i2
+            // 第二个三角形: i0, i2, i3
+            triangleIndices.append(contentsOf: [i0, i1, i2, i0, i2, i3])
+        }
+        
         for i in 0..<meshPositions.count {
             let p = meshPositions[i]
             let n = p
@@ -394,8 +415,182 @@ extension MeshResource {
         descr.positions = MeshBuffers.Positions(meshPositions)
         descr.normals = MeshBuffers.Normals(normals)
         descr.textureCoordinates = MeshBuffers.TextureCoordinates(textureMap)
-        descr.primitives = .trianglesAndQuads(triangles: [], quads: indices)
+        descr.primitives = .triangles(triangleIndices)
         return try MeshResource.generate(from: [descr])
+    }
+    
+    /// 正六面体异步（立方体），radius 为外接球半径，res 四边形平面剖分次数
+    public static func generateHexahedronAsync(radius: Float, res: Int = 0) async throws -> MeshResource {
+        let pointCount = 8
+        var quads = 6
+        var vertices = pointCount * 3
+        
+        var descr = MeshDescriptor()
+        var meshPositions: [SIMD3<Float>] = []
+        var indices: [UInt32] = []
+        var normals: [SIMD3<Float>] = Array(repeating: .zero, count: vertices)
+        var textureMap: [SIMD2<Float>] = []
+        
+        let a: Float = 2 * radius / sqrtf(3)//棱长
+        let r = a / 2 //内切球半径
+        let points: [SIMD3<Float>] = [
+            SIMD3<Float>(r, r, r),
+            SIMD3<Float>(-r, r, r),
+            SIMD3<Float>(-r, r, -r),
+            SIMD3<Float>(r, r, -r),
+            
+            SIMD3<Float>(r, -r, r),
+            SIMD3<Float>(-r, -r, r),
+            SIMD3<Float>(-r, -r, -r),
+            SIMD3<Float>(r, -r, -r),
+        ]
+        meshPositions.append(contentsOf: points + points + points)
+        
+        let index: [UInt32] = [
+            3, 2, 1, 0,
+            4, 5, 6, 7,
+            
+            3, 0, 4, 7,
+            1, 2, 6, 5,
+            
+            0, 1, 5, 4,
+            2, 3, 7, 6
+        ]
+        var countDict: [UInt32:Int] = [:]
+        for ind in index {
+            let count = countDict[ind] ?? 0
+            indices.append(ind + UInt32(pointCount * count))
+            countDict[ind] = count + 1
+        }
+        
+        // Calculate normals for initial vertices
+        for i in 0..<quads {
+            let ai = 4 * i
+            let bi = 4 * i + 1
+            let ci = 4 * i + 2
+            let di = 4 * i + 3
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            let i3 = indices[di]
+            
+            let v0 = meshPositions[Int(i0)]
+            let v1 = meshPositions[Int(i1)]
+            let v2 = meshPositions[Int(i2)]
+            let v3 = meshPositions[Int(i3)]
+            
+            let faceNormal = simd_normalize((v0 + v1 + v2 + v3) / 4)
+            normals[Int(i0)] = faceNormal
+            normals[Int(i1)] = faceNormal
+            normals[Int(i2)] = faceNormal
+            normals[Int(i3)] = faceNormal
+        }
+        
+        // Handle subdivision
+        for _ in 0..<res {
+            let newQuads = quads * 4
+            let newVertices = vertices + quads * 5
+            
+            var newIndices: [UInt32] = []
+            var pos: SIMD3<Float>
+            
+            for i in 0..<quads {
+                let ai = 4 * i
+                let bi = 4 * i + 1
+                let ci = 4 * i + 2
+                let di = 4 * i + 3
+                
+                let i0 = indices[ai]
+                let i1 = indices[bi]
+                let i2 = indices[ci]
+                let i3 = indices[di]
+                
+                let v0 = meshPositions[Int(i0)]
+                let v1 = meshPositions[Int(i1)]
+                let v2 = meshPositions[Int(i2)]
+                let v3 = meshPositions[Int(i3)]
+                
+                let faceNormal = normals[Int(i0)]
+                normals.append(contentsOf: [faceNormal, faceNormal, faceNormal, faceNormal, faceNormal])
+                
+                pos = (v0 + v1) / 2
+                meshPositions.append(pos)
+                
+                pos = (v1 + v2) / 2
+                meshPositions.append(pos)
+                
+                pos = (v2 + v3) / 2
+                meshPositions.append(pos)
+                
+                pos = (v0 + v3) / 2
+                meshPositions.append(pos)
+                
+                pos = (v0 + v1 + v2 + v3) / 4
+                meshPositions.append(pos)
+
+                
+                let a = UInt32(5 * i + vertices)
+                let b = UInt32(5 * i + 1 + vertices)
+                let c = UInt32(5 * i + 2 + vertices)
+                let d = UInt32(5 * i + 3 + vertices)
+                let center = UInt32(5 * i + 4 + vertices)
+                newIndices.append(contentsOf: [
+                    i0, a, center, d,
+                    a, i1, b, center,
+                    center, b, i2, c,
+                    d, center, c, i3
+                ])
+            }
+            
+            indices = newIndices
+            quads = newQuads
+            vertices = newVertices
+        }
+        
+        // Convert quads to triangles
+        var triangleIndices: [UInt32] = []
+        for i in 0..<quads {
+            let ai = 4 * i
+            let bi = 4 * i + 1
+            let ci = 4 * i + 2
+            let di = 4 * i + 3
+            
+            let i0 = indices[ai]
+            let i1 = indices[bi]
+            let i2 = indices[ci]
+            let i3 = indices[di]
+            
+            // 将四边形分解为两个三角形
+            // 第一个三角形: i0, i1, i2
+            // 第二个三角形: i0, i2, i3
+            triangleIndices.append(contentsOf: [i0, i1, i2, i0, i2, i3])
+        }
+        
+        for i in 0..<meshPositions.count {
+            let p = meshPositions[i]
+            let n = p
+          
+            textureMap.append(SIMD2<Float>(abs(atan2(n.x, n.z)) / .pi, 1 - acos(n.y/radius) / .pi))
+        }
+        
+        // Create mesh part
+        var part = MeshResource.Part(id: "Hexahedron", materialIndex: 0)
+        part.triangleIndices = .init(triangleIndices)
+        part.textureCoordinates = .init(textureMap)
+        part.normals = .init(normals)
+        part.positions = .init(meshPositions)
+        
+        // Create model and instance
+        let model = MeshResource.Model(id: "HexahedronModel", parts: [part])
+        let instance = MeshResource.Instance(id: "HexahedronModel-0", model: "HexahedronModel")
+        
+        // Create contents
+        var contents = MeshResource.Contents()
+        contents.instances = .init([instance])
+        contents.models = .init([model])
+        
+        return try await MeshResource(from: contents)
     }
     
     /// 正八面体，radius 为外接球半径，res 三角面剖分次数
